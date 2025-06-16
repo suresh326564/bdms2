@@ -1,0 +1,133 @@
+.recipient-request-page {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+}
+
+.request-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.request-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.request-header p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+}
+
+.request-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.request-card {
+  padding: 2rem;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.request-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-section {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  background-color: var(--bg-primary);
+}
+
+.form-section h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* Urgency level styling */
+.form-select[style*="border-color: red"] {
+  border-color: #dc2626 !important;
+  background-color: #fef2f2;
+}
+
+.form-select[style*="border-color: orange"] {
+  border-color: #f59e0b !important;
+  background-color: #fffbeb;
+}
+
+.form-select[style*="border-color: green"] {
+  border-color: #10b981 !important;
+  background-color: #f0fdf4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .recipient-request-page {
+    padding: 1rem 0;
+  }
+  
+  .request-header h1 {
+    font-size: 2rem;
+  }
+  
+  .request-header p {
+    font-size: 1rem;
+  }
+  
+  .request-card {
+    padding: 1.5rem;
+  }
+  
+  .form-section {
+    padding: 1rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .form-section h3 {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .request-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .request-card {
+    padding: 1rem;
+  }
+  
+  .form-section {
+    padding: 0.75rem;
+  }
+} 
