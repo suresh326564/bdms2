@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import InputField from '../components/InputField';
 import AlertBox from '../components/AlertBox';
 import './Register.css';
 
-const Register = ({ onRegister }) => {
+const Register = ({ onRegister, role: propRole }) => {
+  const location = useLocation();
+  const role = location.state?.role || propRole || 'donor';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,7 +14,7 @@ const Register = ({ onRegister }) => {
     confirmPassword: '',
     bloodGroup: '',
     phone: '',
-    role: 'donor'
+    role: role
   });
   const [errors, setErrors] = useState({});
   const [alert, setAlert] = useState(null);
@@ -62,8 +64,8 @@ const Register = ({ onRegister }) => {
       newErrors.phone = 'Phone number is required';
     }
 
-    if (formData.role === 'donor' && !formData.bloodGroup) {
-      newErrors.bloodGroup = 'Blood group is required for donors';
+    if ((formData.role === 'donor' || formData.role === 'recipient') && !formData.bloodGroup) {
+      newErrors.bloodGroup = 'Blood group is required';
     }
 
     setErrors(newErrors);
@@ -178,7 +180,7 @@ const Register = ({ onRegister }) => {
                 </select>
               </div>
 
-              {formData.role === 'donor' && (
+              {(formData.role === 'donor' || formData.role === 'recipient') && (
                 <div className="form-group">
                   <label className="form-label">Blood Group</label>
                   <select

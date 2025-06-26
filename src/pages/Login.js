@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import InputField from '../components/InputField';
 import AlertBox from '../components/AlertBox';
 import './Login.css';
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, role: propRole }) => {
+  const location = useLocation();
+  const role = location.state?.role || propRole || 'donor';
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    role: 'donor'
+    role: role
   });
   const [errors, setErrors] = useState({});
   const [alert, setAlert] = useState(null);
@@ -131,18 +133,21 @@ const Login = ({ onLogin }) => {
                 required
               />
 
-              <div className="form-group">
-                <label className="form-label">Login As</label>
-                <select
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="form-select"
-                >
-                  <option value="donor">Blood Donor</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
+              {role !== 'admin' && (
+                <div className="form-group">
+                  <label className="form-label">Login As</label>
+                  <select
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="donor">Blood Donor</option>
+                    <option value="recipient">Blood Recipient</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+              )}
 
               <button
                 type="submit"

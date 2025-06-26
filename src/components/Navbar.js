@@ -22,27 +22,29 @@ const Navbar = ({ user, isAuthenticated, onLogout }) => {
   return (
     <nav className="navbar">
       <div className="container navbar-container">
-        <Link to="/" className="navbar-brand" onClick={closeMobileMenu}>
+        <div className="navbar-brand">
           <div className="brand-logo">
             <span className="heart-icon">❤️</span>
             <span className="brand-text">BloodDonate</span>
           </div>
-        </Link>
+        </div>
 
         {/* Desktop Menu */}
         <div className="navbar-menu desktop-menu">
           <Link 
-            to="/" 
-            className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+            to={isAuthenticated ? (user?.role === 'admin' ? '/admin' : '/dashboard') : '/'}
+            className={`nav-link ${location.pathname === '/' || (isAuthenticated && ((user?.role === 'admin' && location.pathname === '/admin') || (user?.role !== 'admin' && location.pathname === '/dashboard'))) ? 'active' : ''}`}
           >
             Home
           </Link>
-          <Link 
-            to="/request-blood" 
-            className={`nav-link ${location.pathname === '/request-blood' ? 'active' : ''}`}
-          >
-            Request Blood
-          </Link>
+          {isAuthenticated && user?.role === 'recipient' && (
+            <Link 
+              to="/request-blood" 
+              className={`nav-link ${location.pathname === '/request-blood' ? 'active' : ''}`}
+            >
+              Request Blood
+            </Link>
+          )}
           {isAuthenticated ? (
             <>
               {user?.role === 'donor' && (
@@ -94,19 +96,21 @@ const Navbar = ({ user, isAuthenticated, onLogout }) => {
         {/* Mobile Menu */}
         <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
           <Link 
-            to="/" 
-            className={`mobile-nav-link ${location.pathname === '/' ? 'active' : ''}`}
+            to={isAuthenticated ? (user?.role === 'admin' ? '/admin' : '/dashboard') : '/'}
+            className={`mobile-nav-link ${location.pathname === '/' || (isAuthenticated && ((user?.role === 'admin' && location.pathname === '/admin') || (user?.role !== 'admin' && location.pathname === '/dashboard'))) ? 'active' : ''}`}
             onClick={closeMobileMenu}
           >
             Home
           </Link>
-          <Link 
-            to="/request-blood" 
-            className={`mobile-nav-link ${location.pathname === '/request-blood' ? 'active' : ''}`}
-            onClick={closeMobileMenu}
-          >
-            Request Blood
-          </Link>
+          {isAuthenticated && user?.role === 'recipient' && (
+            <Link 
+              to="/request-blood" 
+              className={`mobile-nav-link ${location.pathname === '/request-blood' ? 'active' : ''}`}
+              onClick={closeMobileMenu}
+            >
+              Request Blood
+            </Link>
+          )}
           {isAuthenticated ? (
             <>
               {user?.role === 'donor' && (
@@ -125,6 +129,15 @@ const Navbar = ({ user, isAuthenticated, onLogout }) => {
                   onClick={closeMobileMenu}
                 >
                   Admin Panel
+                </Link>
+              )}
+              {user?.role === 'recipient' && (
+                <Link 
+                  to="/request-blood" 
+                  className={`mobile-nav-link ${location.pathname === '/request-blood' ? 'active' : ''}`}
+                  onClick={closeMobileMenu}
+                >
+                  Request Blood
                 </Link>
               )}
               <div className="mobile-user-info">

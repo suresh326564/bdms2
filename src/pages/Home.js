@@ -3,12 +3,7 @@ import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
-  const stats = [
-    { number: '15,000+', label: 'Total Donors', icon: '👥' },
-    { number: '45,000+', label: 'Lives Saved', icon: '❤️' },
-    { number: '120+', label: 'Blood Drives', icon: '🏥' },
-    { number: '98%', label: 'Success Rate', icon: '📈' }
-  ];
+  const stats = [];
 
   const features = [
     {
@@ -49,12 +44,29 @@ const Home = () => {
                 Your blood donation can save up to 3 lives. Start your journey to become a lifesaver today.
               </p>
               <div className="hero-buttons">
-                <Link to="/register" className="btn btn-primary btn-large">
-                  Become a Donor
-                </Link>
-                <Link to="/request-blood" className="btn btn-secondary btn-large">
-                  Request Blood
-                </Link>
+                <div className="hero-action">
+                  <Link to="/register" state={{ role: 'donor' }} className="btn btn-primary btn-large">
+                    Become a Blood Donor
+                  </Link>
+                  <div className="hero-signin">
+                    <span>Already a donor? </span>
+                    <Link to="/login" state={{ role: 'donor' }} className="link-primary">Sign In</Link>
+                  </div>
+                </div>
+                <div className="hero-action">
+                  <Link to="/register" state={{ role: 'recipient' }} className="btn btn-secondary btn-large">
+                    Become a Blood Recipient
+                  </Link>
+                  <div className="hero-signin">
+                    <span>Already a recipient? </span>
+                    <Link to="/login" state={{ role: 'recipient' }} className="link-primary">Sign In</Link>
+                  </div>
+                </div>
+                <div className="hero-action" style={{ marginTop: '2rem' }}>
+                  <Link to="/login" state={{ role: 'admin' }} className="btn btn-dark btn-large">
+                    Sign In as Admin
+                  </Link>
+                </div>
               </div>
             </div>
             <div className="hero-image">
@@ -67,7 +79,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Stats Section */}
       <section className="stats-section">
         <div className="container">
@@ -82,7 +93,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Features Section */}
       <section className="features-section">
         <div className="container">
@@ -103,27 +113,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="container">
-          <div className="cta-content">
-            <h2 className="cta-title">Ready to Make a Difference?</h2>
-            <p className="cta-description">
-              Every drop counts. Join our community of donors and help save lives today.
-            </p>
-            <div className="cta-buttons">
-              <Link to="/register" className="btn btn-primary btn-large">
-                Start Donating
-              </Link>
-              <Link to="/request-blood" className="btn btn-secondary btn-large">
-                Need Blood?
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="home-footer">
         <div className="container">
